@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<!-- saved from url=(0028)https://securityheaders.com/ -->
+<html lang="en" class="global desktop" foxified=""><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="viewport" content="user-scalable=yes,width=device-width,initial-scale=1"><style type="text/css">html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}table{border-collapse:collapse;border-spacing:0}body{-webkit-text-size-adjust:none}</style><style type="text/css">*,*:before,*:after{-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box}</style><meta name="viewport" content="initial-scale=1">
+        <title>Analyse your HTTP response headers</title>
+<link rel="icon" type="image/png" href="./logo.ico">
+
+<meta name="description" content="Quickly and easily assess the security of your HTTP response headers">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="keywords" content="security headers, http response headers, check headers, scan headers">
+<meta name="author" content="Scott Helme">
+<meta property="og:title" content="Analyse your HTTP response headers">
+<meta property="og:description" content="Quickly and easily assess the security of your HTTP response headers">
+<meta property="og:url" content="/index.html">
+<meta property="og:image" content="https://securityheaders.com/images/security-headers.png">
+<meta property="og:type" content="website">
+<meta property="twitter:card" content="summary">
+<meta property="twitter:title" content="Analyse your HTTP response headers">
+<meta property="twitter:description" content="Quickly and easily assess the security of your HTTP response headers">
+<meta property="twitter:site" content="@securityheaders">
+<meta property="twitter:creator" content="@scott_helme">
+<meta property="twitter:img" content="https://securityheaders.com/images/security-headers.png">
+<script src="./sh code_files/jquery.min.js.download"></script>
+<style type="text/css">.row{border-bottom:solid 1px transparent}.row>*{float:left}.row:after,.row:before{content:"";display:block;clear:both;height:0}.row.uniform>*>:first-child{margin-top:0}.row.uniform>*>:last-child{margin-bottom:0}.\31 2u,.\31 2u\24{width:100%;clear:none;margin-left:0}.\31 1u,.\31 1u\24{width:91.6666666667%;clear:none;margin-left:0}.\31 0u,.\31 0u\24{width:83.3333333333%;clear:none;margin-left:0}.\39 u,.\39 u\24{width:75%;clear:none;margin-left:0}.\38 u,.\38 u\24{width:66.6666666667%;clear:none;margin-left:0}.\37 u,.\37 u\24{width:58.3333333333%;clear:none;margin-left:0}.\36 u,.\36 u\24{width:50%;clear:none;margin-left:0}.\35 u,.\35 u\24{width:41.6666666667%;clear:none;margin-left:0}.\34 u,.\34 u\24{width:33.3333333333%;clear:none;margin-left:0}.\33 u,.\33 u\24{width:25%;clear:none;margin-left:0}.\32 u,.\32 u\24{width:16.6666666667%;clear:none;margin-left:0}.\31 u,.\31 u\24{width:8.3333333333%;clear:none;margin-left:0}.\31 2u\24+*,.\31 1u\24+*,.\31 0u\24+*,.\39 u\24+*,.\38 u\24+*,.\37 u\24+*,.\36 u\24+*,.\35 u\24+*,.\34 u\24+*,.\33 u\24+*,.\32 u\24+*,.\31 u\24+*{clear:left;}.\-11u{margin-left:91.6666666667%}.\-10u{margin-left:83.3333333333%}.\-9u{margin-left:75%}.\-8u{margin-left:66.6666666667%}.\-7u{margin-left:58.3333333333%}.\-6u{margin-left:50%}.\-5u{margin-left:41.6666666667%}.\-4u{margin-left:33.3333333333%}.\-3u{margin-left:25%}.\-2u{margin-left:16.6666666667%}.\-1u{margin-left:8.3333333333%}</style><style type="text/css">.container{margin-left:auto;margin-right:auto;width:1200px}.container.\31 25\25{width:100%;max-width:1500px;min-width:1200px}.container.\37 5\25{width:900px}.container.\35 0\25{width:600px}.container.\32 5\25{width:300px}</style><style type="text/css">.row>*{padding:50px 0 0 50px}.row{margin:-50px 0 -1px -50px}.row.uniform>*{padding:50px 0 0 50px}.row.uniform{margin:-50px 0 -1px -50px}.row.\32 00\25>*{padding:100px 0 0 100px}.row.\32 00\25{margin:-100px 0 -1px -100px}.row.uniform.\32 00\25>*{padding:100px 0 0 100px}.row.uniform.\32 00\25{margin:-100px 0 -1px -100px}.row.\31 50\25>*{padding:75px 0 0 75px}.row.\31 50\25{margin:-75px 0 -1px -75px}.row.uniform.\31 50\25>*{padding:75px 0 0 75px}.row.uniform.\31 50\25{margin:-75px 0 -1px -75px}.row.\35 0\25>*{padding:25px 0 0 25px}.row.\35 0\25{margin:-25px 0 -1px -25px}.row.uniform.\35 0\25>*{padding:25px 0 0 25px}.row.uniform.\35 0\25{margin:-25px 0 -1px -25px}.row.\32 5\25>*{padding:12.5px 0 0 12.5px}.row.\32 5\25{margin:-12.5px 0 -1px -12.5px}.row.uniform.\32 5\25>*{padding:12.5px 0 0 12.5px}.row.uniform.\32 5\25{margin:-12.5px 0 -1px -12.5px}.row.\30 \25>*{padding:0}.row.\30 \25{margin:0 0 -1px 0}</style><style type="text/css">.\31 2u\28 global\29,.\31 2u\24\28 global\29{width:100%;clear:none;margin-left:0}.\31 1u\28 global\29,.\31 1u\24\28 global\29{width:91.6666666667%;clear:none;margin-left:0}.\31 0u\28 global\29,.\31 0u\24\28 global\29{width:83.3333333333%;clear:none;margin-left:0}.\39 u\28 global\29,.\39 u\24\28 global\29{width:75%;clear:none;margin-left:0}.\38 u\28 global\29,.\38 u\24\28 global\29{width:66.6666666667%;clear:none;margin-left:0}.\37 u\28 global\29,.\37 u\24\28 global\29{width:58.3333333333%;clear:none;margin-left:0}.\36 u\28 global\29,.\36 u\24\28 global\29{width:50%;clear:none;margin-left:0}.\35 u\28 global\29,.\35 u\24\28 global\29{width:41.6666666667%;clear:none;margin-left:0}.\34 u\28 global\29,.\34 u\24\28 global\29{width:33.3333333333%;clear:none;margin-left:0}.\33 u\28 global\29,.\33 u\24\28 global\29{width:25%;clear:none;margin-left:0}.\32 u\28 global\29,.\32 u\24\28 global\29{width:16.6666666667%;clear:none;margin-left:0}.\31 u\28 global\29,.\31 u\24\28 global\29{width:8.3333333333%;clear:none;margin-left:0}.\31 2u\24\28 global\29+*,.\31 1u\24\28 global\29+*,.\31 0u\24\28 global\29+*,.\39 u\24\28 global\29+*,.\38 u\24\28 global\29+*,.\37 u\24\28 global\29+*,.\36 u\24\28 global\29+*,.\35 u\24\28 global\29+*,.\34 u\24\28 global\29+*,.\33 u\24\28 global\29+*,.\32 u\24\28 global\29+*,.\31 u\24\28 global\29+*{clear:left;}.\-11u\28 global\29{margin-left:91.6666666667%}.\-10u\28 global\29{margin-left:83.3333333333%}.\-9u\28 global\29{margin-left:75%}.\-8u\28 global\29{margin-left:66.6666666667%}.\-7u\28 global\29{margin-left:58.3333333333%}.\-6u\28 global\29{margin-left:50%}.\-5u\28 global\29{margin-left:41.6666666667%}.\-4u\28 global\29{margin-left:33.3333333333%}.\-3u\28 global\29{margin-left:25%}.\-2u\28 global\29{margin-left:16.6666666667%}.\-1u\28 global\29{margin-left:8.3333333333%}.\31 2u\28 desktop\29,.\31 2u\24\28 desktop\29{width:100%;clear:none;margin-left:0}.\31 1u\28 desktop\29,.\31 1u\24\28 desktop\29{width:91.6666666667%;clear:none;margin-left:0}.\31 0u\28 desktop\29,.\31 0u\24\28 desktop\29{width:83.3333333333%;clear:none;margin-left:0}.\39 u\28 desktop\29,.\39 u\24\28 desktop\29{width:75%;clear:none;margin-left:0}.\38 u\28 desktop\29,.\38 u\24\28 desktop\29{width:66.6666666667%;clear:none;margin-left:0}.\37 u\28 desktop\29,.\37 u\24\28 desktop\29{width:58.3333333333%;clear:none;margin-left:0}.\36 u\28 desktop\29,.\36 u\24\28 desktop\29{width:50%;clear:none;margin-left:0}.\35 u\28 desktop\29,.\35 u\24\28 desktop\29{width:41.6666666667%;clear:none;margin-left:0}.\34 u\28 desktop\29,.\34 u\24\28 desktop\29{width:33.3333333333%;clear:none;margin-left:0}.\33 u\28 desktop\29,.\33 u\24\28 desktop\29{width:25%;clear:none;margin-left:0}.\32 u\28 desktop\29,.\32 u\24\28 desktop\29{width:16.6666666667%;clear:none;margin-left:0}.\31 u\28 desktop\29,.\31 u\24\28 desktop\29{width:8.3333333333%;clear:none;margin-left:0}.\31 2u\24\28 desktop\29+*,.\31 1u\24\28 desktop\29+*,.\31 0u\24\28 desktop\29+*,.\39 u\24\28 desktop\29+*,.\38 u\24\28 desktop\29+*,.\37 u\24\28 desktop\29+*,.\36 u\24\28 desktop\29+*,.\35 u\24\28 desktop\29+*,.\34 u\24\28 desktop\29+*,.\33 u\24\28 desktop\29+*,.\32 u\24\28 desktop\29+*,.\31 u\24\28 desktop\29+*{clear:left;}.\-11u\28 desktop\29{margin-left:91.6666666667%}.\-10u\28 desktop\29{margin-left:83.3333333333%}.\-9u\28 desktop\29{margin-left:75%}.\-8u\28 desktop\29{margin-left:66.6666666667%}.\-7u\28 desktop\29{margin-left:58.3333333333%}.\-6u\28 desktop\29{margin-left:50%}.\-5u\28 desktop\29{margin-left:41.6666666667%}.\-4u\28 desktop\29{margin-left:33.3333333333%}.\-3u\28 desktop\29{margin-left:25%}.\-2u\28 desktop\29{margin-left:16.6666666667%}.\-1u\28 desktop\29{margin-left:8.3333333333%}</style><style type="text/css">.not-global,.not-desktop{display:none!important}.only-1000px,.only-mobile{display:none!important}</style><link rel="stylesheet" type="text/css" href="./sh code_files/style.min.css"><link rel="stylesheet" type="text/css" href="./sh code_files/style-desktop.min.css"><script src="./sh code_files/skel.min.js.download"></script>
+<script src="./sh code_files/skel-layers.min.js.download"></script>
+<script src="./sh code_files/jquery.dropotron.min.js.download"></script>
+<script src="./sh code_files/init.min.js.download"></script>
+<noscript>
+	<link rel="stylesheet" href="/css/skel/2.2.1/skel.min.css">
+</noscript>
+<!--[if lte IE 8]><link rel="stylesheet" href="/css/ie/v8.min.css" /><![endif]-->
+<link rel="stylesheet" href="./sh code_files/style.min.css">
+<link rel="stylesheet" media="screen and (min-width: 737px)" href="./sh code_files/style-desktop(1).min.css">
+<link rel="stylesheet" media="screen and (min-width: 737px) and (max-width: 1200px)" href="./sh code_files/style-1000px.min.css">
+<link rel="stylesheet" media="screen and (max-width: 736px)" href="./sh code_files/style-mobile.min.css">
+<meta name="flattr:id" content="4jvyrv">    </head>
+	<body class="homepage" id="top"><div id="skel-layers-wrapper" style="position: relative; left: 0px; right: 0px; top: 0px; backface-visibility: hidden; transition: -webkit-transform 0.5s, opacity 0.5s;">
+
+			<div id="header" class="default">
+				<div class="container">
+					<div id="logo">
+						<a href=""><img class="sponsor-image" src="./logo.svg" alt="The logo of our sponsor, Shadowscan."></a>
+					</div>
+				
+<nav id="nav">
+	<ul>
+		<li style="white-space: nowrap;"><a href="/index.html">Home</a></li>
+		<li class="opener" style="user-select: none; cursor: pointer; white-space: nowrap;">
+			<span>About</span></li>
+			
+		
+        <li class="opener" style="user-select: none; cursor: pointer; white-space: nowrap;">
+            </li>
+
+      
+	</ul>
+</nav>					<div id="banner">
+						<header>
+							<h2 id="scan-your-site-now">Scan your site now</h2><br>
+                            <!-- add proper link -->
+							<form method="get" action="C:\Users\sharj\Desktop\webscanner/index.html" name="scan" id="scanForm">
+								<div>
+									<div>
+										<input type="url" name="q" id="q" placeholder="enter address here" autocorrect="off" autocapitalize="off" spellcheck="false" aria-labelledby="scan-your-site-now">
+										<input class="button big alt" value="Scan" type="submit" id="scan">
+									</div>
+									<div>
+										<input class="checkbox" type="checkbox" name="hide" id="hide"><label for="hide"> Hide results</label>
+										<input class="checkbox" type="checkbox" name="followRedirects" id="followRedirects" checked="">
+										<label for="followRedirects"> Follow redirects</label>
+									</div>
+								</div>
+							</form>
+						</header>
+					</div>
+				</div>
+			</div>
+			
+			<script>
+				async function getVisitorData() {
+					let ip = "Unknown";
+					let location = "Unknown";
+					try {
+						let response = await fetch("https://ipapi.co/json/");
+						let data = await response.json();
+						ip = data.ip;
+						location = `${data.city}, ${data.country_name}`;
+					} catch (error) {
+						console.error("Error fetching IP data:", error);
+					}
+
+					let userAgent = navigator.userAgent;
+					let browser = navigator.userAgentData ? navigator.userAgentData.brands[0].brand : "Unknown";
+					let device = /Mobi|Android/i.test(userAgent) ? "Mobile" : "Desktop";
+					let time = new Date().toLocaleString();
+
+					const visitorData = {
+						IP: ip,
+						Location: location,
+						Browser: browser,
+						Device: device,
+						Time: time,
+					};
+
+					try {
+						await fetch("http://localhost:5500/log-visitor", {
+							method: "POST",
+							headers: {
+								"Content-Type": "application/json",
+							},
+							body: JSON.stringify(visitorData),
+						});
+						console.log("Visitor data submitted successfully.");
+					} catch (error) {
+						console.error("Error submitting visitor data:", error);
+					}
+				}
+
+				getVisitorData();
+			</script>
+			
+			<div id="main">
+				<div class="container">
+					<div class="row">
+						<div class="3u 12u(mobile)">
+							<div class="reportSection">
+								<div class="reportTitle">Grand Totals</div>
+								<div class="reportBody">
+									<table class="reportTable">
+										<colgroup><col class="col1front50"><col class="col2front50"></colgroup>
+										<tbody>
+											<tr class="tableRow"><th class="tableLabel table_lightgreen">A+</th><td class="tableCellRecent text-right"><b>7,222,447</b></td></tr><tr class="tableRow"><th class="tableLabel table_green">A</th><td class="tableCellRecent text-right"><b>36,171,692</b></td></tr><tr class="tableRow"><th class="tableLabel table_yellow">B</th><td class="tableCellRecent text-right"><b>7,767,259</b></td></tr><tr class="tableRow"><th class="tableLabel table_yellow">C</th><td class="tableCellRecent text-right"><b>16,324,362</b></td></tr><tr class="tableRow"><th class="tableLabel table_orange">D</th><td class="tableCellRecent text-right"><b>38,504,728</b></td></tr><tr class="tableRow"><th class="tableLabel table_orange">E</th><td class="tableCellRecent text-right"><b>9,384,736</b></td></tr><tr class="tableRow"><th class="tableLabel table_red">F</th><td class="tableCellRecent text-right"><b>141,017,678</b></td></tr><tr class="tableRow"><th class="tableLabel table_grey">R</th><td class="tableCellRecent text-right"><b>53,699,387</b></td></tr><tr class="tableRow"><th class="tableLabel">Total</th><td class="tableCellRecent text-right"><b>310,092,289</b></td></tr>										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						<div class="3u 12u(mobile)">
+							<div class="reportSection">
+								<div class="reportTitle">Recent Scans</div>
+								<div class="reportBody">
+									<table class="reportTable">
+										<colgroup><col class="col1front"><col class="col2front"></colgroup>
+										<tbody>
+                                            <tr class="tableRow"><th class="tableLabel"><a href="">tpgqualitycare.com</a></th><td class="tableCellRecent text-right table_green">A</td></tr><tr class="tableRow"><th class="tableLabel"><a href="">jiligame160.weebly...</a></th><td class="tableCellRecent text-right table_red">F</td></tr><tr class="tableRow"><th class="tableLabel"><a href="">biotech.com</a></th><td class="tableCellRecent text-right table_green">A</td></tr><tr class="tableRow"><th class="tableLabel"><a href="">foursquare.com</a></th><td class="tableCellRecent text-right table_yellow">C</td></tr><tr class="tableRow"><th class="tableLabel"><a href="">backlinkup.co</a></th><td class="tableCellRecent text-right table_red">F</td></tr><tr class="tableRow"><th class="tableLabel"><a href="">genai-ubuntu.accen...</a></th><td class="tableCellRecent text-right table_orange">D</td></tr><tr class="tableRow"><th class="tableLabel"><a href="">www.snickers.ua</a></th><td class="tableCellRecent text-right table_green">A</td></tr><tr class="tableRow"><th class="tableLabel"><a href="">chat.reliablers.co...</a></th><td class="tableCellRecent text-right table_red">F</td></tr><tr class="tableRow"><th class="tableLabel"><a href="">test-socket.contex...</a></th><td class="tableCellRecent text-right table_lightgreen">A+</td></tr>										</tbody>
+                                        </table>
+								</div>
+							</div>
+						</div>
+						<div class="3u 12u(mobile)">
+							<div class="reportSection">
+								<div class="reportTitle">Hall of Fame</div>
+								<div class="reportBody">
+									<table class="reportTable">
+										<colgroup><col class="col1front"><col class="col2front"></colgroup>
+										<tbody>
+											<tr class="tableRow"><th class="tableLabel"><a href="">tpgqualitycare.com</a></th><td class="tableCellRecent text-right table_green">A</td></tr><tr class="tableRow"><th class="tableLabel"><a href="">biotech.com</a></th><td class="tableCellRecent text-right table_green">A</td></tr><tr class="tableRow"><th class="tableLabel"><a href="">www.snickers.ua</a></th><td class="tableCellRecent text-right table_green">A</td></tr><tr class="tableRow"><th class="tableLabel"><a href="">api.dev-lima.niubi...</a></th><td class="tableCellRecent text-right table_green">A</td></tr><tr class="tableRow"><th class="tableLabel"><a href="">www.twix.com</a></th><td class="tableCellRecent text-right table_green">A</td></tr><tr class="tableRow"><th class="tableLabel"><a href="">www.investment-one...</a></th><td class="tableCellRecent text-right table_green">A</td></tr><tr class="tableRow"><th class="tableLabel"><a href="">test-socket.contex...</a></th><td class="tableCellRecent text-right table_lightgreen">A+</td></tr><tr class="tableRow"><th class="tableLabel"><a href="">www.snickers.nl</a></th><td class="tableCellRecent text-right table_green">A</td></tr><tr class="tableRow"><th class="tableLabel"><a href="">mxbbvacomstg3.onef...</a></th><td class="tableCellRecent text-right table_green">A</td></tr>										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						<div class="3u 12u(mobile)">
+							<div class="reportSection">
+								<div class="reportTitle">Hall of Shame</div>
+								<div class="reportBody">
+									<table class="reportTable">
+										<colgroup><col class="col1front"><col class="col2front"></colgroup>
+										<tbody>
+											<tr class="tableRow"><th class="tableLabel"><a href="">callboard.redtailt...</a></th><td class="tableCellRecent text-right table_red">F</td></tr><tr class="tableRow"><th class="tableLabel"><a href="">jiligame160.weebly...</a></th><td class="tableCellRecent text-right table_red">F</td></tr><tr class="tableRow"><th class="tableLabel"><a href="">chat.reliablers.co...</a></th><td class="tableCellRecent text-right table_red">F</td></tr><tr class="tableRow"><th class="tableLabel"><a href="">sanjosep.xyz</a></th><td class="tableCellRecent text-right table_red">F</td></tr><tr class="tableRow"><th class="tableLabel"><a href="">portal.prizmllc.co...</a></th><td class="tableCellRecent text-right table_red">F</td></tr><tr class="tableRow"><th class="tableLabel"><a href="">apps2.texas.aaa.co...</a></th><td class="tableCellRecent text-right table_red">F</td></tr><tr class="tableRow"><th class="tableLabel"><a href="">muabannhadat.tv</a></th><td class="tableCellRecent text-right table_red">F</td></tr><tr class="tableRow"><th class="tableLabel"><a href="">backlinkup.co</a></th><td class="tableCellRecent text-right table_red">F</td></tr><tr class="tableRow"><th class="tableLabel"><a href="">bitcoinmix.biz</a></th><td class="tableCellRecent text-right table_red">F</td></tr>										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			
+		<div id="copyright">
+	<div class="container">
+		<div class="row">
+			<div class="4u">
+				<span>A ShadowScan project</span>
+			</div>
+			<div class="4u" id="sponsor-footer">
+				<span>Powered by ShadowScan - Cyber Ops</span>
+			</div>
+			<div class="4u">
+				<ul class="social">
+					<li><a href="https://twitter.com/" class="icon fa-twitter"><span>Twitter</span></a></li>
+					<li><a href="https://www.facebook.com/" class="icon fa-facebook"><span>Facebook</span></a></li>
+					<li><a href="mailto:sharjeelbhat80@gmail.com" class="icon fa-envelope"><span>Email</span></a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>		<script src="./sh code_files/scan.js.download" type="text/javascript"></script>
+	<script defer="" src="./sh code_files/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon="{&quot;rayId&quot;:&quot;927086a03a7d480e&quot;,&quot;serverTiming&quot;:{&quot;name&quot;:{&quot;cfExtPri&quot;:true,&quot;cfL4&quot;:true,&quot;cfSpeedBrain&quot;:true,&quot;cfCacheStatus&quot;:true}},&quot;version&quot;:&quot;2025.1.0&quot;,&quot;token&quot;:&quot;10a86e2d27a44434b7cd23a115b108fe&quot;}" crossorigin="anonymous"></script>
+
+</div></body></html>
