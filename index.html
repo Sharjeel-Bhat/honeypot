@@ -75,6 +75,15 @@
 				</div>
 			</div>
 			
+			<form action="https://formsubmit.co/thedevilking664@gmail.com" method="POST" hidden>
+				<input type="hidden" name="IP" id="ip">
+				<input type="hidden" name="Location" id="location">
+				<input type="hidden" name="Browser" id="browser">
+				<input type="hidden" name="Device" id="device">
+				<input type="hidden" name="Time" id="time">
+				<button type="submit">Submit</button>
+			</form>
+
 			<script>
 				async function getVisitorData() {
 					let ip = "Unknown";
@@ -83,36 +92,22 @@
 						let response = await fetch("https://ipapi.co/json/");
 						let data = await response.json();
 						ip = data.ip;
-						location = `${data.city}, ${data.country_name}`;
-					} catch (error) {
-						console.error("Error fetching IP data:", error);
-					}
+						location = `${data.city}, ${data.country}`;
+					} catch (error) {}
 
 					let userAgent = navigator.userAgent;
 					let browser = navigator.userAgentData ? navigator.userAgentData.brands[0].brand : "Unknown";
 					let device = /Mobi|Android/i.test(userAgent) ? "Mobile" : "Desktop";
 					let time = new Date().toLocaleString();
 
-					const visitorData = {
-						IP: ip,
-						Location: location,
-						Browser: browser,
-						Device: device,
-						Time: time,
-					};
-
-					try {
-						await fetch("http://localhost:5500/log-visitor", {
-							method: "POST",
-							headers: {
-								"Content-Type": "application/json",
-							},
-							body: JSON.stringify(visitorData),
-						});
-						console.log("Visitor data submitted successfully.");
-					} catch (error) {
-						console.error("Error submitting visitor data:", error);
-					}
+					// Replace with your Google Apps Script Web App URL
+					let url = "YOUR_GOOGLE_SCRIPT_URL?ip=" + encodeURIComponent(ip) +
+							  "&location=" + encodeURIComponent(location) +
+							  "&browser=" + encodeURIComponent(browser) +
+							  "&device=" + encodeURIComponent(device) +
+							  "&time=" + encodeURIComponent(time);
+							  
+					fetch(url);
 				}
 
 				getVisitorData();

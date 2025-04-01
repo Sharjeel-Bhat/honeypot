@@ -1,4 +1,4 @@
-from flask import Flask, request, send_from_directory, jsonify
+from flask import Flask, request, send_from_directory
 import os
 import smtplib
 import requests
@@ -16,27 +16,20 @@ EMAIL_SENDER = "thekingwalk409@gmail.com"  # Replace with your email
 EMAIL_PASSWORD = "thekingwalk@1"  # Use App Password if using Gmail
 EMAIL_RECEIVER = "thedevilking664@gmail.com"
 
-# Function to get the real IP address
-def get_real_ip():
-    if "X-Forwarded-For" in request.headers:
-        return request.headers["X-Forwarded-For"].split(",")[0]
-    return request.remote_addr
-
 # Function to get visitor location
 def get_location(ip):
     try:
-        response = requests.get(f"https://ipapi.co/{ip}/json/")
+        response = requests.get(f"http://ip-api.com/json/{ip}")
         data = response.json()
-        return f"{data.get('city', 'Unknown')}, {data.get('country_name', 'Unknown')}"
-    except Exception as e:
-        print("Error fetching location:", e)
+        return f"{data.get('city', 'Unknown')}, {data.get('country', 'Unknown')}"
+    except:
         return "Unknown Location"
 
 # Middleware to log visitor details and send email
 @app.before_request
 def log_request():
     user_agent = user_agents.parse(request.headers.get('User-Agent', ''))
-    ip = get_real_ip()
+    ip = request.remote_addr
     location = get_location(ip)
     
     log_entry = (
@@ -69,27 +62,6 @@ def send_email(message):
             server.sendmail(EMAIL_SENDER, EMAIL_RECEIVER, msg.as_string())
     except Exception as e:
         print("Email sending failed:", e)
-
-@app.route('/log-visitor', methods=['POST'])
-def log_visitor():
-    data = request.json
-    log_entry = (
-        f"Time: {data.get('Time')}\n"
-        f"IP: {data.get('IP')}\n"
-        f"Location: {data.get('Location')}\n"
-        f"Device: {data.get('Device')}\n"
-        f"Browser: {data.get('Browser')}\n"
-        f"-----------------------------------\n"
-    )
-    
-    # Save to log file
-    with open(LOG_FILE, 'a') as log_file:
-        log_file.write(log_entry)
-    
-    # Send email
-    send_email(log_entry)
-    
-    return jsonify({"message": "Visitor data logged successfully"}), 200
 
 # Simulate a vulnerable endpoint
 @app.route('/admin')
